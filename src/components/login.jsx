@@ -5,13 +5,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { signUserStart, signUserSuccess, signUserFailure } from '../slice/auth'
 import AuthService from '../service/auth'
 import ValidationError from './validation-error'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const dispatch = useDispatch()
     const { isLoading } = useSelector(state => state.auth)
-
+    const navigate = useNavigate()
 
     const loginHandler = async e => {
         e.preventDefault()
@@ -21,6 +22,7 @@ const Login = () => {
             const response = await AuthService.userLogin(user)
             console.log(response);
             dispatch(signUserSuccess(response.user))
+            navigate('/')
         } catch (error) {
             dispatch(signUserFailure(error.response.data.errors))
         }
