@@ -4,6 +4,7 @@ import { Input } from '../ui'
 import { useDispatch, useSelector } from 'react-redux'
 import { signUserStart, signUserSuccess, signUserFailure } from '../slice/auth'
 import AuthService from '../service/auth'
+import ValidationError from './validation-error'
 
 const Login = () => {
     const [email, setEmail] = useState('')
@@ -15,7 +16,7 @@ const Login = () => {
     const loginHandler = async e => {
         e.preventDefault()
         dispatch(signUserStart())
-        const user =  {email, password}
+        const user = { email, password }
         try {
             const response = await AuthService.userLogin(user)
             console.log(response);
@@ -31,7 +32,7 @@ const Login = () => {
                 <form>
                     <img className='mb-2' src={icon} alt='' width='72' height='60' />
                     <h1 className='h3 mb-3 fw-normal'>Please login</h1>
-
+                    <ValidationError />
                     <Input label={'Email address'} state={email} setState={setEmail} />
                     <Input label={'Password'} type={'password'} state={password} setState={setPassword} />
 
