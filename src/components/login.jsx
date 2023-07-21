@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { icon } from './constants'
 import { Input } from '../ui'
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,7 +11,7 @@ const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const dispatch = useDispatch()
-    const { isLoading } = useSelector(state => state.auth)
+    const { isLoading, loggedIn } = useSelector(state => state.auth)
     const navigate = useNavigate()
 
     const loginHandler = async e => {
@@ -27,6 +27,12 @@ const Login = () => {
             dispatch(signUserFailure(error.response.data.errors))
         }
     }
+
+    useEffect(() => {
+        if (loggedIn) {
+            navigate("/")
+        }
+    }, [loggedIn]);
 
     return (
         <div className='text-center mt-5'>
