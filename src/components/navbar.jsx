@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { removeItem } from '../helpers/persistance-store'
 import { logoutUser } from '../slice/auth'
 
+
 const Navbar = () => {
     const { loggedIn, user } = useSelector(state => state.auth)
     const navigate = useNavigate()
@@ -34,7 +35,8 @@ const Navbar = () => {
                             Register
                         </Link>
                     </>
-                )}
+                )
+                }
             </nav>
         </div>
     )
